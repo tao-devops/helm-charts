@@ -3,7 +3,7 @@ name: Terraform
 on:
   push:
     branches:
-      - tao
+      - tao  # Change the branch to "tao"
 
 jobs:
   terraform:
@@ -18,9 +18,9 @@ jobs:
 
       - name: Set New Relic account IDs from secret
         env:
-          NEWRELIC_ACCOUNTS_JSON: ${{ secrets.NEW_RELIC_ACCOUNT_IDS }}  # Use the GitHub secret
+          NEWRELIC_ACCOUNTS_JSON: ${{ secrets.NEW_RELIC_ACCOUNT_IDS }}
         run: |
-          echo "NEWRELIC_ACCOUNTS_JSON=$NEWRELIC_ACCOUNTS_JSON" >> $GITHUB_ENV  # Set the JSON to an environment variable
+          echo "NEWRELIC_ACCOUNTS_JSON=${{ secrets.NEW_RELIC_ACCOUNT_IDS }}" >> $GITHUB_ENV
 
       - name: Terraform Init and Apply
         env:
@@ -28,4 +28,3 @@ jobs:
         run: |
           terraform init
           terraform apply -auto-approve
-
