@@ -3,7 +3,7 @@ name: Terraform
 on:
   push:
     branches:
-      - tao  # Change the branch to "tao"
+      - tao  # Ensure the correct branch name is specified here
 
 jobs:
   terraform:
@@ -24,7 +24,7 @@ jobs:
 
       - name: Terraform Init and Apply
         env:
-          TF_VAR_newrelic_accounts_json: ${{ env.NEWRELIC_ACCOUNTS_JSON }}  # Pass the JSON as a variable to Terraform
+          TF_VAR_newrelic_accounts_json: ${{ env.NEWRELIC_ACCOUNTS_JSON }}
         run: |
           terraform init
           terraform apply -auto-approve
