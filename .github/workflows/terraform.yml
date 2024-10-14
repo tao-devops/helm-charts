@@ -3,7 +3,7 @@ name: Terraform
 on:
   push:
     branches:
-      - tao  # Ensure the correct branch name is specified here
+      - tao  # Ensure this matches your branch name
 
 jobs:
   terraform:
@@ -16,15 +16,9 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
-      - name: Set New Relic account IDs from secret
-        env:
-          NEWRELIC_ACCOUNTS_JSON: ${{ secrets.NEW_RELIC_ACCOUNT_IDS }}
-        run: |
-          echo "NEWRELIC_ACCOUNTS_JSON=${{ secrets.NEW_RELIC_ACCOUNT_IDS }}" >> $GITHUB_ENV
-
       - name: Terraform Init and Apply
         env:
-          TF_VAR_newrelic_accounts_json: ${{ env.NEWRELIC_ACCOUNTS_JSON }}
+          TF_VAR_newrelic_accounts_json: ${{ secrets.NEW_RELIC_ACCOUNT_IDS }}  # Directly pass the GitHub secret
         run: |
           terraform init
           terraform apply -auto-approve
