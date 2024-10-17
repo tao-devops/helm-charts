@@ -18,7 +18,7 @@ jobs:
 
       - name: Terraform Init and Apply
         env:
-          TF_VAR_newrelic_accounts_json: ${{ secrets.NEW_RELIC_ACCOUNT_IDS }}  # Directly pass the GitHub secret
+          TF_VAR_newrelic_accounts_json: ${{ env.NEW_RELIC_ACCOUNT_IDS1 }}  # Directly pass the GitHub secret
         run: |
           terraform init
           terraform apply -auto-approve
